@@ -18,6 +18,7 @@ package org.gradle.launcher.continuous
 
 import org.gradle.integtests.fixtures.AbstractIntegrationSpec
 import org.gradle.integtests.fixtures.executer.*
+import org.gradle.internal.os.OperatingSystem
 import org.gradle.util.Requires
 import org.gradle.util.TestPrecondition
 import org.gradle.util.TextUtil
@@ -44,6 +45,10 @@ abstract public class AbstractContinuousIntegrationTest extends AbstractIntegrat
 
     public void cleanupWhileTestFilesExist() {
         stopGradle()
+        if(OperatingSystem.current().isWindows()) {
+            // needs delay to release file handles
+            sleep(500L)
+        }
     }
 
     @Override
