@@ -15,16 +15,15 @@
  */
 
 package org.gradle.launcher.continuous
+
 import org.gradle.integtests.fixtures.AbstractIntegrationSpec
 import org.gradle.integtests.fixtures.executer.*
-import org.gradle.test.fixtures.file.LeaksFileHandles
 import org.gradle.util.Requires
 import org.gradle.util.TestPrecondition
 import org.gradle.util.TextUtil
 import org.spockframework.runtime.SpockTimeoutError
 import spock.util.concurrent.PollingConditions
 
-@LeaksFileHandles
 @Requires(TestPrecondition.JDK7_OR_LATER)
 abstract public class AbstractContinuousIntegrationTest extends AbstractIntegrationSpec {
 
@@ -43,7 +42,7 @@ abstract public class AbstractContinuousIntegrationTest extends AbstractIntegrat
         buildTimeout = buildTimeout*100
     }
 
-    public void cleanup() {
+    public void cleanupWhileTestFilesExist() {
         stopGradle()
     }
 
